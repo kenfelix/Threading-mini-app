@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Counter from "../contracts/counter";
+import Threading from "../contracts/threading";
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonConnect } from "./useTonConnect";
@@ -7,36 +7,36 @@ import { Address, OpenedContract } from "ton-core";
 import { useQuery } from "@tanstack/react-query";
 import { CHAIN } from "@tonconnect/protocol";
 
-export function useCounterContract() {
+export function useThreadingContract() {
   const { client } = useTonClient();
   const { sender, network } = useTonConnect();
 
-  const counterContract = useAsyncInitialize(async () => {
+  const threadingContract = useAsyncInitialize(async () => {
     if (!client) return;
-    const contract = new Counter(
+    const contract = new Threading(
       Address.parse(
         network === CHAIN.MAINNET
-          ? "EQBPEDbGdwaLv1DKntg9r6SjFIVplSaSJoJ-TVLe_2rqBOmH"
-          : "EQBYLTm4nsvoqJRvs_L-IGNKwWs5RKe19HBK_lFadf19FUfb"
+          ? ""
+          : "EQD-ZGPMdDioBoHRWxmTH5BkY_8ZvU3u1uBYP_hrGe5311r0"
       ) // replace with your address from tutorial 2 step 8
     );
-    return client.open(contract) as OpenedContract<Counter>;
+    return client.open(contract) as OpenedContract<Threading>;
   }, [client]);
 
   const { data, isFetching } = useQuery(
-    ["counter"],
+    ["threading"],
     async () => {
-      if (!counterContract) return null;
-      return (await counterContract!.getCounter()).toString();
+      if (!threadingContract) return null;
+      return (await threadingContract.getUsers())
     },
     { refetchInterval: 3000 }
   );
 
   return {
     value: isFetching ? null : data,
-    address: counterContract?.address.toString(),
+    address: threadingContract?.address.toString(),
     sendIncrement: () => {
-      return counterContract?.sendIncrement(sender);
+      return threadingContract?.sendIncrement(sender);
     },
   };
 }

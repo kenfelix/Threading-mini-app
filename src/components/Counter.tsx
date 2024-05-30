@@ -1,5 +1,5 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
-import { useCounterContract } from "../hooks/useCounterContract";
+import { useThreadingContract } from "../hooks/useThreadingContract";
 import { useTonConnect } from "../hooks/useTonConnect";
 
 import {
@@ -10,9 +10,9 @@ import {
   Button,
 } from "./styled/styled";
 
-export function Counter() {
+export function Threading() {
   const { connected } = useTonConnect();
-  const { value, address, sendIncrement } = useCounterContract();
+  const { value, address, sendIncrement } = useThreadingContract();
 
   return (
     <div className="Container">
@@ -20,7 +20,7 @@ export function Counter() {
 
       <Card>
         <FlexBoxCol>
-          <h3>Counter</h3>
+          <h3>Threading</h3>
           <FlexBoxRow>
             <b>Address</b>
             <Ellipsis>{address}</Ellipsis>
