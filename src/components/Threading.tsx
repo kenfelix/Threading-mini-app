@@ -12,7 +12,7 @@ import {
 
 export function Threading() {
   const { connected } = useTonConnect();
-  const { value, address, sendWithdraw } = useThreadingContract();
+  const {value, address, sendWithdraw, isFetching } = useThreadingContract();
 
   return (
     <div className="Container">
@@ -27,7 +27,7 @@ export function Threading() {
           </FlexBoxRow>
           <FlexBoxRow>
             <b>Value</b>
-            <div>{JSON.stringify(value) ?? "Loading..."}</div>
+            <div>{isFetching ? `${JSON.stringify(value)} (refreshing...)` : JSON.stringify(value)}</div>
           </FlexBoxRow>
           <Button
             disabled={!connected}
@@ -36,7 +36,7 @@ export function Threading() {
               sendWithdraw("EQB2GmX3ESvI-meFAtFj7PRNaBnokvepihuoAlWtIFoTgJcv");
             }}
           >
-            Increment
+            Join
           </Button>
         </FlexBoxCol>
       </Card>

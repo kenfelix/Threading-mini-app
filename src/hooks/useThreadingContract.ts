@@ -27,13 +27,18 @@ export function useThreadingContract() {
     ["threading"],
     async () => {
       if (!threadingContract) return null;
-      return ((await threadingContract.getUsers()).values)
+      return (await threadingContract.getUserList())
     },
-    { refetchInterval: 3000 }
+    {
+      refetchInterval: 3000,
+      staleTime: 60000,
+      cacheTime: 300000,
+    }
   );
 
   return {
-    value: isFetching ? null : data,
+    isFetching,
+    value: data?.values().toString(),
     address: threadingContract?.address.toString(),
     sendWithdraw: (referrer: string) => {
       return threadingContract?.send(
