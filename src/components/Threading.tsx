@@ -16,6 +16,7 @@ export function Threading() {
 
   return (
     <div className="Container">
+        
       <TonConnectButton />
 
       <Card>
@@ -27,7 +28,7 @@ export function Threading() {
           </FlexBoxRow>
           <FlexBoxRow>
             <b>Value</b>
-            <div>{isFetching ? `${JSON.stringify(value)} (refreshing...)` : JSON.stringify(value)}</div>
+            <div>{isFetching ? `${value} (refreshing...)` : value}</div>
           </FlexBoxRow>
           <Button
             disabled={!connected}

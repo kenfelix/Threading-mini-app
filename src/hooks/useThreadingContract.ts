@@ -44,11 +44,11 @@ export function useThreadingContract() {
       return threadingContract?.send(
         sender,
         {
-          value: toNano("0.37")
+          value: toNano("0.38")
         },
         {
           $$type: "Withdraw",
-          amount: toNano(0.3),
+          amount: toNano("0.3"),
           data: Address.parse(referrer)
         }
       );
