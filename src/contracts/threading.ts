@@ -8,12 +8,12 @@ import {
   beginCell,
 } from "ton-core";
 
-export default class Counter implements Contract {
-  static createForDeploy(code: Cell, initialCounterValue: number): Counter {
-    const data = beginCell().storeUint(initialCounterValue, 64).endCell();
+export default class Threading implements Contract {
+  static createForDeploy(code: Cell, initialThreadingValue: number): Threading {
+    const data = beginCell().storeUint(initialThreadingValue, 64).endCell();
     const workchain = 0; // deploy to workchain 0
     const address = contractAddress(workchain, { code, data });
-    return new Counter(address, { code, data });
+    return new Threading(address, { code, data });
   }
 
   async sendDeploy(provider: ContractProvider, via: Sender) {
@@ -23,9 +23,9 @@ export default class Counter implements Contract {
     });
   }
 
-  async getCounter(provider: ContractProvider) {
-    const { stack } = await provider.get("counter", []);
-    return stack.readBigNumber();
+  async getUsers(provider: ContractProvider) {
+    const { stack } = await provider.get("threading", []);
+    return stack.readCellOpt();
   }
 
   async sendIncrement(provider: ContractProvider, via: Sender) {
