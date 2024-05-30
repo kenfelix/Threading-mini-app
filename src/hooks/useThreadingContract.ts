@@ -27,7 +27,7 @@ export function useThreadingContract() {
     ["threading"],
     async () => {
       if (!threadingContract) return null;
-      return (await threadingContract.getUserList())
+      return ((await threadingContract.getUsers()).values)
     },
     { refetchInterval: 3000 }
   );
