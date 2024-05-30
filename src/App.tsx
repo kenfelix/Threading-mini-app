@@ -1,6 +1,6 @@
 import "./App.css";
 import { TonConnectButton } from "@tonconnect/ui-react";
-import { Threading } from "./components/Counter";
+import { Threading } from "./components/Threading";
 import styled from "styled-components";
 import { Button, FlexBoxCol, FlexBoxRow } from "./components/styled/styled";
 import { useTonConnect } from "./hooks/useTonConnect";

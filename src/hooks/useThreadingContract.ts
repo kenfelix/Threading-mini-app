@@ -3,7 +3,7 @@ import Threading from "../contracts/threading";
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonConnect } from "./useTonConnect";
-import { Address, OpenedContract } from "ton-core";
+import { Address, OpenedContract, toNano } from "ton-core";
 import { useQuery } from "@tanstack/react-query";
 import { CHAIN } from "@tonconnect/protocol";
 
@@ -35,8 +35,18 @@ export function useThreadingContract() {
   return {
     value: isFetching ? null : data,
     address: threadingContract?.address.toString(),
-    sendIncrement: () => {
-      return threadingContract?.sendIncrement(sender);
+    sendWithdraw: (referrer: string) => {
+      return threadingContract?.send(
+        sender,
+        {
+          value: toNano("0.37")
+        },
+        {
+          $$type: "Withdraw",
+          amount: toNano(0.3),
+          data: Address.parse(referrer)
+        }
+      );
     },
   };
 }
